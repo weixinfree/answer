@@ -4,9 +4,7 @@ from ocr import ocr
 import baidu
 from typing import List
 from termcolor import colored
-
-
-box = (60, 760, 1000, 1600)
+from config import CUT_BOX
 
 
 def take_screenshot() -> str:
@@ -18,7 +16,7 @@ def take_screenshot() -> str:
 
 def prepare_img(img: str) -> str:
     crop_image = 'cq.jpg'
-    Image.open(img).crop(box).convert('L').save(crop_image)
+    Image.open(img).crop(CUT_BOX).convert('L').save(crop_image)
 
     return crop_image
 
