@@ -5,6 +5,7 @@ import baidu
 from typing import List
 from termcolor import colored
 from config import CUT_BOX
+import traceback
 
 
 def take_screenshot() -> str:
@@ -57,3 +58,4 @@ if __name__ == '__main__':
             main()
         except Exception as e:
             print(colored(f'ERROR!! {e}', 'yellow'))
+            print(traceback.format_exc())

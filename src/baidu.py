@@ -10,6 +10,7 @@ from itertools import groupby
 from termcolor import colored
 from functools import wraps
 import re
+from urllib.parse import urlencode
 
 
 def weight(weight: int = 100, curve: Callable[[int, int], float] = lambda x, y: x / y):
@@ -21,6 +22,8 @@ def weight(weight: int = 100, curve: Callable[[int, int], float] = lambda x, y: 
             print('ANALYSIS:', fn.__name__, result)
 
             max_score = max(score for _, score in result.items())
+            if max_score <= 0:
+                max_score = 1
 
             def compute_score(score):
                 percent = curve(score, max_score)
@@ -129,15 +132,28 @@ def _baidu(q: str, options: List[str]) -> str:
 
     print('query: ', query)
 
-    headers = {'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
-               'Accept - Encoding': 'gzip, deflate',
-               'Accept-Language': 'zh-Hans-CN, zh-Hans; q=0.5',
-               'Connection': 'Keep-Alive',
-               'Host': 'baidu.com',
-               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063'}
+    encoded_query = urlencode({'wd': query, 'ie': 'utf-8'})
 
-    URL = f'http://www.baidu.com/s?ie=utf-8&wd={query}'
-    return requests.get(URL, headers=headers)
+    # option - 1
+    from subprocess import check_call
+    search_url = f'http://www.baidu.com/s?{encoded_query}'
+
+    check_call(f'sh baidu.sh {search_url}', shell=True)
+    import time
+    time.sleep(2)
+    with open('_baidu.html', encoding='utf-8') as f:
+        return f.read()
+
+    # option - 2
+    # headers = {'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
+    #            'Accept - Encoding': 'gzip, deflate',
+    #            'Accept-Language': 'zh-Hans-CN, zh-Hans; q=0.5',
+    #            'Connection': 'Keep-Alive',
+    #            'Host': 'baidu.com',
+    #            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063'}
+
+    # URL = f'http://www.baidu.com/s?ie=utf-8&wd={query}'
+    # return requests.get(URL, headers=headers).text
 
 
 def search(q: str, options: List[str]):
@@ -146,14 +162,14 @@ def search(q: str, options: List[str]):
 
     res = _baidu(q, options)
 
-    keywords = re.findall(r'<em>(.*?)</em>', res.text, re.DOTALL)
+    keywords = re.findall(r'<em>(.*?)</em>', res, re.DOTALL)
     print(keywords)
     ems = [w for item in keywords for w in jieba.lcut(item)]
     labling = _labling(query_words, options, ems)
 
     print(', '.join(f'<{lable.word}|{lable.lable}|{lable.index}>' for lable in labling))
 
-    search_result = SearchResult(q, options, query_words, res.text, labling)
+    search_result = SearchResult(q, options, query_words, res, labling)
 
     analysis_result = {index: 1 for index in range(len(options))}
 
