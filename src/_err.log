@@ -1,8 +1,0 @@
-[0913/135843.456080:ERROR:xattr.cc(64)] setxattr org.chromium.crashpad.database.initialized on file /var/folders/mc/y_m725511_s2lhh2lg0p39bm0000gn/T/: Operation not permitted (1)
-[0913/135843.457528:ERROR:file_io.cc(89)] ReadExactly: expected 8, observed 0
-[0913/135843.458739:ERROR:xattr.cc(64)] setxattr org.chromium.crashpad.database.initialized on file /var/folders/mc/y_m725511_s2lhh2lg0p39bm0000gn/T/: Operation not permitted (1)
-[0913/135843.493231:ERROR:gpu_process_transport_factory.cc(1016)] Lost UI shared context.
-[0913/135843.577423:ERROR:gl_implementation.cc(292)] Failed to load /Applications/Google Chrome.app/Contents/Versions/68.0.3440.106/Google Chrome Framework.framework/Versions/Current/Libraries/libswiftshader_libGLESv2.dylib: dlopen(/Applications/Google Chrome.app/Contents/Versions/68.0.3440.106/Google Chrome Framework.framework/Versions/Current/Libraries/libswiftshader_libGLESv2.dylib, 1): image not found
-[0913/135843.768924:ERROR:gl_implementation.cc(292)] Failed to load /Applications/Google Chrome.app/Contents/Versions/68.0.3440.106/Google Chrome Framework.framework/Versions/Current/Libraries/libswiftshader_libGLESv2.dylib: dlopen(/Applications/Google Chrome.app/Contents/Versions/68.0.3440.106/Google Chrome Framework.framework/Versions/Current/Libraries/libswiftshader_libGLESv2.dylib, 1): no suitable image found.  Did find:
-	/Applications/Google Chrome.app/Contents/Versions/68.0.3440.106/Google Chrome Framework.framework/Versions/Current/Libraries/libswiftshader_libGLESv2.dylib: file system sandbox blocked stat()
-[0913/135843.801110:ERROR:viz_main_impl.cc(201)] Exiting GPU process due to errors during initialization

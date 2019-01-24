@@ -1,1 +1,8 @@
 src/config.py
+src/__pycache__
+src/.pytest_cache
+.pytest_cache
+src/*.jpg
+src/*.png
+src/*.html
+src/analysis.py

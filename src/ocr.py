@@ -34,4 +34,4 @@ def ocr(file: str):
 if __name__ == '__main__':
     import sys
     for file in sys.argv[1:]:
-        ocr(file)
+        print(ocr(file))
