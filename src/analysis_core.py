@@ -79,13 +79,18 @@ def analysis(question: str, options: List[str], docs: List[str]) -> Result:
     scores = defaultdict(int)
     for i in range(len(seg)):
         tag, s = _compute_score(i, seg)
-        if s > 0:
+        if s >= 0:
             scores[tag] += s
 
     print('-' * 100)
     print()
+
+    if not scores.values():
+        return
     max_score = max(scores.values())
-    for o, s in scores.items():
+    items = list(scores.items())
+    items.sort()
+    for o, s in items:
         color = 'red' if s == max_score else 'white'
         print(colored(f'{o}). {options[int(o)]}: {s/max_score:.2f}', color))
 

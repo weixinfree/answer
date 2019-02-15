@@ -67,13 +67,13 @@ def test():
 
 
 if __name__ == '__main__':
-    test()
-    # while True:
-    #     s = input('start with any input: >>> ')
-    #     if s.strip() == 'exit':
-    #         break
-    #     try:
-    #         main()
-    #     except Exception as e:
-    #         print(colored(f'ERROR!! {e}', 'yellow'))
-    #         print(traceback.format_exc())
+    # test()
+    while True:
+        s = input('start with any input: >>> ')
+        if s.strip() == 'exit':
+            break
+        try:
+            main()
+        except Exception as e:
+            print(colored(f'ERROR!! {e}', 'yellow'))
+            print(traceback.format_exc())
